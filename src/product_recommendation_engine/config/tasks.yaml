@@ -1,0 +1,63 @@
+---
+analyze_user_requirements:
+  description: 'Analyze the user''s requirements for {product_category} products.
+    Extract and structure key information including: budget constraints, must-have
+    features, preferred brands, use cases, priorities (price vs quality vs features),
+    any specific technical requirements, and implicit needs that might not be directly
+    stated. Create a comprehensive requirements profile that will guide the product
+    search and ranking process.'
+  expected_output: 'A structured requirements profile in markdown format including:
+    budget range, priority features list, use case scenarios, brand preferences, technical
+    specifications needed, quality vs price preferences, and any special considerations.
+    The profile should be detailed enough to guide effective product search and ranking.'
+  agent: requirements_analyst
+research_product_options:
+  description: 'Based on the analyzed user requirements, conduct comprehensive product
+    research for {product_category} items. Use Google Shopping and other available
+    sources to find products that match the requirements profile. Gather detailed
+    information including: product names, specifications, pricing, ratings, reviews,
+    availability, brand information, and key features. Focus on finding a diverse
+    range of options across different price points and feature sets that align with
+    the user''s needs.'
+  expected_output: 'A comprehensive product research report in markdown format containing:
+    detailed product information for 10-15 relevant products, including names, prices,
+    key specifications, ratings/reviews, availability, pros/cons, and source links.
+    Products should span different price ranges and feature combinations to provide
+    good variety for ranking.'
+  agent: product_research_specialist
+  context:
+  - analyze_user_requirements
+rank_product_options:
+  description: 'Analyze and rank the researched products based on how well they meet
+    the user requirements. Create a scoring methodology that weighs factors like:
+    requirements match, value for money, quality indicators (ratings/reviews), feature
+    completeness, brand reputation, and availability. Apply this scoring system to
+    rank products from best to worst fit for the user''s specific needs and preferences.'
+  expected_output: 'A ranked product analysis in markdown format showing: the scoring
+    methodology used, detailed scores for each product across different criteria,
+    final rankings with justifications, and identification of top 5-7 best options.
+    Include reasoning for why certain products rank higher and any important trade-offs
+    to consider.'
+  agent: product_ranking_analyst
+  context:
+  - analyze_user_requirements
+  - research_product_options
+generate_personalized_recommendations:
+  description: Create personalized product recommendations by synthesizing the user
+    requirements, product research, and ranking analysis. Generate clear, actionable
+    recommendations that explain why specific products are recommended, highlight
+    key benefits and trade-offs, provide comparisons between top options, and include
+    practical purchase guidance. Tailor the recommendations to the user's specific
+    needs and decision-making style.
+  expected_output: 'A comprehensive personalized recommendation report in markdown
+    format including: executive summary with top 3 recommended products, detailed
+    explanations for why each recommendation fits the user''s needs, comparison table
+    of top options highlighting key differences, practical considerations for purchase
+    decisions, alternative options for different scenarios/budgets, and next steps
+    for making the purchase. The report should be clear, actionable, and tailored
+    to the user''s specific requirements.'
+  agent: recommendation_specialist
+  context:
+  - analyze_user_requirements
+  - research_product_options
+  - rank_product_options
